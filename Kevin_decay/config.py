@@ -20,7 +20,7 @@ glimpse_arg.add_argument('--patch_size', type=int, default=8,
 												 help='size of extracted patch at highest res')
 glimpse_arg.add_argument('--glimpse_scale', type=int, default=2,
 												 help='scale of successive patches')
-glimpse_arg.add_argument('--num_patches', type=int, default=3,
+glimpse_arg.add_argument('--num_patches', type=int, default=2,
 												 help='# of downscaled patches per glimpse')
 glimpse_arg.add_argument('--loc_hidden', type=int, default=128,
 												 help='hidden size of loc fc')
@@ -64,7 +64,7 @@ train_arg.add_argument('--is_train', type=str2bool, default=True,
 											 help='Whether to train or test the model')
 train_arg.add_argument('--momentum', type=float, default=0.5,
 											 help='Nesterov momentum value')
-train_arg.add_argument('--epochs', type=int, default=5,
+train_arg.add_argument('--epochs', type=int, default=3,
 											 help='# of epochs to train for') #default was 200
 train_arg.add_argument('--init_lr', type=float, default=3e-4,
 											 help='Initial learning rate value')
