@@ -245,16 +245,21 @@ class Trainer(object):
                     log_pi.append(p)
                     predicted1 = torch.max(log_probas1, 1)[1]
                     R1 = (predicted1.detach() == y).float()
+                    # R1[R1==0] = -1
                     log_probas_list.append(R1)
 
                 # last iteration
+                log_probas = log_probas1
                 R = log_probas_list
                 R = torch.stack(R).transpose(1,0)
+                
                 rew = rew.type(R.type())
                 R = R.mul(rew)
-                h_t, l_t, b_t, log_probas, p = self.model(
-                    x, l_t, h_t, last=True
-                )
+                R[R==0] = -1
+                # print(R)
+                # h_t, l_t, b_t, log_probas, p = self.model(
+                #     x, l_t, h_t, last=True
+                # )
                 # log_pi.append(p)
                 # baselines.append(b_t)
                 # locs.append(l_t[0:9])
@@ -262,7 +267,7 @@ class Trainer(object):
                 # convert list to tensors and reshape
                 baselines = torch.stack(baselines).transpose(1, 0)
                 log_pi = torch.stack(log_pi).transpose(1, 0)
-
+                 
                 # calculate reward
                 predicted = torch.max(log_probas, 1)[1]
                 R = (predicted.detach() == y).float()

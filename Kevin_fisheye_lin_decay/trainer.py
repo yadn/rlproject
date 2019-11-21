@@ -248,14 +248,15 @@ class Trainer(object):
 					R1 = (predicted1.detach() == y).float()
 					log_probas_list.append(R1)
 
+				log_probas = log_probas1
 				R = log_probas_list
 				R = torch.stack(R).transpose(1,0)
 				rew = rew.type(R.type())
 				R = R.mul(rew)
 				# last iteration
-				h_t, l_t, b_t, log_probas, p = self.model(
-					x, l_t, h_t, last=True
-				)
+				# h_t, l_t, b_t, log_probas, p = self.model(
+				# 	x, l_t, h_t, last=True
+				# )
 				# log_pi.append(p)
 				# baselines.append(b_t)
 				# locs.append(l_t[0:9])
